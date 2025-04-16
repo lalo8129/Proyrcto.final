@@ -1,0 +1,327 @@
+SubProceso CargarDatosIniciales(n_alumnos Por Referencia, n_lista Por Referencia, Exam_es Por Referencia, Exam_prac Por Referencia, calif_asis Por Referencia, n)
+    n_alumnos[0]<- "Kevin Perez"
+    n_alumnos[1]<- "Alexis Cruz"
+    n_alumnos[2]<- "Carla Cruz"
+    n_alumnos[3]<- "Ana Azpeitia"
+    n_alumnos[4]<- "Alberto Jimenez"
+    n_alumnos[5]<- "Juan Nava"
+    n_alumnos[6]<- "Berenice Montiel"
+    n_alumnos[7]<- "Edgardo Sauz"
+    n_alumnos[8]<- "Angel Lopez"
+    n_alumnos[9]<- "Pedro Martinez"
+	
+    Para i <- 0 Hasta 9 Hacer
+        n_lista[i] <- ConvertirATexto(i + 1)
+    FinPara
+	
+    Exam_es[0] <- 6.0
+    Exam_es[1] <- 8.0
+    Exam_es[2] <- 10
+    Exam_es[3] <- 10
+    Exam_es[4] <- 8.0
+    Exam_es[5] <- 10
+    Exam_es[6] <- 10
+    Exam_es[7] <- 10
+    Exam_es[8] <- 8.0
+    Exam_es[9] <- 10
+	
+    Exam_prac[0]<- 7.0
+    Exam_prac[1]<- 8.0
+    Exam_prac[2]<- 9.5
+    Exam_prac[3]<- 7.0
+    Exam_prac[4]<- 10
+    Exam_prac[5]<- 9.5
+    Exam_prac[6]<- 8.0
+    Exam_prac[7]<- 9.0
+    Exam_prac[8]<- 10
+    Exam_prac[9]<- 9.0
+	
+    calif_asis[0]<- 8.0
+    calif_asis[1]<- 10
+    calif_asis[2]<- 10
+    calif_asis[3]<- 10
+    calif_asis[4]<- 10
+    calif_asis[5]<- 8.0
+    calif_asis[6]<- 10
+    calif_asis[7]<- 10
+    calif_asis[8]<- 10
+    calif_asis[9]<- 10
+FinSubProceso
+
+SubProceso MostrarMenu
+    Escribir "======= SISTEMA PARA GESTIÓN DE ALUMNOS ======="
+    Escribir "1. Consultar alumnos por No. de lista"
+    Escribir "2. Calcular promedio del alumno"
+    Escribir "3. Estado del alumno"
+    Escribir "4. Agregar nuevo alumno"
+    Escribir "5. Mostrar lista completa"
+    Escribir "6. Buscar alumno"
+	Escribir "7. Modidicar calificaciones de algún alumno"
+    Escribir "8. Salir"
+    Escribir "Seleccione una opción: "
+FinSubProceso
+
+SubProceso Consultar_Nombre(n_alumnos, n_lista, n)
+    Definir num_lista Como Cadena
+    Definir encontrado Como Logico
+    Definir i Como Entero
+	
+    Escribir "Ingrese el número de lista del alumno: "
+    Leer num_lista
+	
+    encontrado <- Falso
+    Para i <- 0 Hasta n-1 Hacer
+        Si n_lista[i] = num_lista Entonces
+            Escribir "Nombre: ", n_alumnos[i]
+            Escribir "Número de lista: ", n_lista[i]
+            encontrado <- Verdadero
+        FinSi
+    FinPara
+	
+    Si NO encontrado Entonces
+        Escribir "Alumno no encontrado. Verifique el número de lista que ingresó."
+    FinSi
+FinSubProceso
+
+SubProceso Promedio_alumnos(n_alumnos, n_lista, calif_asis, Exam_es, Exam_prac, n)
+    Definir num_lista Como Cadena
+    Definir encontrado Como Logico
+    Definir i Como Entero
+    Definir promedio Como Real
+	
+    Escribir "Ingrese el número de lista del alumno: "
+    Leer num_lista
+	
+    encontrado <- Falso
+    Para i <- 0 Hasta n-1 Hacer
+        Si n_lista[i] = num_lista Entonces
+            promedio <- (calif_asis[i] + Exam_es[i] + Exam_prac[i]) / 3
+            Escribir "Nombre: ", n_alumnos[i]
+            Escribir "Calificación en asistencias: ", calif_asis[i]
+            Escribir "Examen práctico: ", Exam_prac[i]
+            Escribir "Examen escrito: ", Exam_es[i]
+            Escribir "Promedio final: ", promedio
+            encontrado <- Verdadero
+        FinSi
+    FinPara
+	
+    Si NO encontrado Entonces
+        Escribir "Alumno no encontrado."
+    FinSi
+FinSubProceso
+
+SubProceso estado_alumnos(n_alumnos, n_lista, calif_asis, Exam_es, Exam_prac, n)
+    Definir num_lista Como Cadena
+    Definir encontrado Como Logico
+    Definir i Como Entero
+    Definir promedio Como Real
+	
+    Escribir "Ingrese el número de lista del alumno: "
+    Leer num_lista
+	
+    encontrado <- Falso
+    Para i <- 0 Hasta n-1 Hacer
+        Si n_lista[i] = num_lista Entonces
+            promedio <- (calif_asis[i] + Exam_es[i] + Exam_prac[i]) / 3
+            Escribir "Nombre: ", n_alumnos[i]
+            Escribir "Promedio: ", promedio
+            Si promedio >= 9 Entonces
+                Escribir "El alumno aprobó."
+            Sino
+                Escribir "El alumno no aprobó."
+            FinSi
+            encontrado <- Verdadero
+        FinSi
+    FinPara
+	
+    Si NO encontrado Entonces
+        Escribir "Alumno no encontrado."
+    FinSi
+FinSubProceso
+
+SubProceso Agregar_alumno(n_alumnos Por Referencia, n_lista Por Referencia, calif_asis Por Referencia, Exam_es Por Referencia, Exam_prac Por Referencia, n Por Referencia)
+    Definir nombre, num_lista Como Cadena
+    Definir cali_asis, Exa_es, Exa_prac Como Real
+    Definir i Como Entero
+    Definir nombreExiste Como Logico
+	
+    Escribir "Ingrese el nombre del alumno: "
+    Leer nombre
+	
+    nombreExiste <- Verdadero
+    Mientras nombreExiste Hacer
+        Escribir "Ingrese el número de lista del alumno: "
+        Leer num_lista
+		
+        nombreExiste <- Falso
+        Para i <- 0 Hasta n-1 Hacer
+            Si n_lista[i] = num_lista Entonces
+                nombreExiste <- Verdadero
+            FinSi
+        FinPara
+		
+        Si nombreExiste Entonces
+            Escribir "El número ya está en uso. Intente con otro."
+        FinSi
+    FinMientras
+	
+    Repetir
+        Escribir "Ingrese la calificación de asistencias:"
+        Leer cali_asis
+    Hasta Que cali_asis > 0
+	
+    Repetir
+        Escribir "Ingrese la calificación del examen escrito:"
+        Leer Exa_es
+    Hasta Que Exa_es > 0
+	
+    Repetir
+        Escribir "Ingrese la calificación del examen práctico:"
+        Leer Exa_prac
+    Hasta Que Exa_prac > 0
+	
+    n_alumnos[n] <- nombre
+    n_lista[n] <- num_lista
+    calif_asis[n] <- cali_asis
+    Exam_es[n] <- Exa_es
+    Exam_prac[n] <- Exa_prac
+    n <- n + 1
+	
+    Escribir "Alumno agregado exitosamente."
+FinSubProceso
+
+SubProceso Mostrarlista(n_lista, n_alumnos, calif_asis, Exam_es, Exam_prac ,n)
+    Definir i Como Entero
+    Escribir "==================================== LISTA DE ALUMNOS =========================================="
+    Escribir "No. | Nombre | Asistencias | Ex. Práctico | Ex. Escrito"
+    Para i <- 0 Hasta n-1 Hacer
+        Escribir n_lista[i], " | ", n_alumnos[i], " | ", calif_asis[i], " | ", Exam_prac[i], " | ", Exam_es[i]
+    FinPara
+    Escribir "================================================================================================="
+FinSubProceso
+
+SubProceso Buscaralumno(n_alumnos, n_lista, n)
+    Definir busqueda Como Cadena
+    Definir i Como Entero
+    Definir encontrado Como Logico
+    Definir hayCoincidencia Como Logico
+    
+    Escribir "Ingrese el nombre o parte de la clave del producto a buscar: "
+    Leer busqueda
+    busqueda <- Minusculas(busqueda)
+    
+    encontrado <- Falso
+    Escribir "Resultados de la b?squeda:"
+    Escribir "------------------------------------------------"
+    
+    Para i <- 0 Hasta n-1 Hacer
+        hayCoincidencia <- Falso
+        
+        // Buscamos coincidencia en el nombre del producto
+        Si Minusculas(n_alumnos[i]) = busqueda Entonces
+            hayCoincidencia <- Verdadero
+        FinSi
+        
+        // Buscamos coincidencia en la clave del producto
+        Si Minusculas(N_lista[i]) = busqueda Entonces
+            hayCoincidencia <- Verdadero
+        FinSi
+        
+        Si hayCoincidencia Entonces
+            Escribir "No. de lista: ", n_lista[i]
+            Escribir "Nommbre: ", n_alumnos[i]
+            Escribir "------------------------------------------------"
+            encontrado <- Verdadero
+        FinSi
+    FinPara
+    
+    Si NO encontrado Entonces
+        Escribir "No se encontraron productos con ese criterio de b?squeda."
+    FinSi
+FinSubProceso
+
+SubProceso ModificarCalificaciones(n_alumnos Por Referencia, n_lista Por Referencia, calif_asis Por Referencia, Exam_es Por Referencia, Exam_prac Por Referencia, n)
+    Definir num_lista Como Cadena
+    Definir encontrado Como Logico
+    Definir i Como Entero
+    Definir nueva_calificacion Como Real
+	
+    Escribir "Ingrese el número de lista del alumno para modificar calificaciones: "
+    Leer num_lista
+	
+    encontrado <- Falso
+    Para i <- 0 Hasta n-1 Hacer
+        Si n_lista[i] = num_lista Entonces
+            Escribir "Alumno encontrado: ", n_alumnos[i]
+            
+            Repetir
+                Escribir "Ingrese la nueva calificación de asistencias (0 a 10): "
+                Leer nueva_calificacion
+            Hasta Que nueva_calificacion >= 0 Y nueva_calificacion <= 10
+            calif_asis[i] <- nueva_calificacion
+			
+            Repetir
+                Escribir "Ingrese la nueva calificación del examen práctico (0 a 10): "
+                Leer nueva_calificacion
+            Hasta Que nueva_calificacion >= 0 Y nueva_calificacion <= 10
+            Exam_prac[i] <- nueva_calificacion
+			
+            Repetir
+                Escribir "Ingrese la nueva calificación del examen escrito (0 a 10): "
+                Leer nueva_calificacion
+            Hasta Que nueva_calificacion >= 0 Y nueva_calificacion <= 10
+            Exam_es[i] <- nueva_calificacion
+			
+            Escribir "? Calificaciones modificadas correctamente."
+            encontrado <- Verdadero
+        FinSi
+    FinPara
+	
+    Si NO encontrado Entonces
+        Escribir "? Alumno no encontrado."
+    FinSi
+FinSubProceso
+
+Algoritmo Sistema_Gestion_Calificaciones
+    Definir opcion Como Entero
+    Definir salir Como Logico
+    Definir n Como Entero
+    Dimension n_alumnos[100], n_lista[100], calif_asis[100], Exam_es[100], Exam_prac[100]
+	
+    n <- 10
+    CargarDatosIniciales(n_alumnos, n_lista, Exam_es, Exam_prac, calif_asis, n)
+	
+    salir <- Falso
+    Mientras NO salir Hacer
+        MostrarMenu
+        Leer opcion
+		
+        Segun opcion Hacer
+            1:
+                Consultar_Nombre(n_alumnos, n_lista, n)
+            2:
+                Promedio_alumnos(n_alumnos, n_lista, calif_asis, Exam_es, Exam_prac, n)
+            3:
+                estado_alumnos(n_alumnos, n_lista, calif_asis, Exam_es, Exam_prac, n)
+            4:
+                Agregar_alumno(n_alumnos, n_lista, calif_asis, Exam_es, Exam_prac, n)
+            5:
+                Mostrarlista(n_lista, n_alumnos, calif_asis, Exam_es, Exam_prac ,n)
+            6:
+                Buscaralumno(n_alumnos, n_lista, n)
+            7:
+				ModificarCalificaciones(n_alumnos, n_lista, calif_asis, Exam_es, Exam_prac, n)
+			8:	
+                salir <- Verdadero
+                Escribir "Gracias por utilizar el sistema. ¡Hasta pronto!"
+            De Otro Modo:
+                Escribir "Opción no válida. Intente de nuevo."
+        FinSegun
+		
+        Si NO salir Entonces
+            Escribir "Presione Enter para continuar..."
+            Esperar Tecla
+            Limpiar Pantalla
+        FinSi
+    FinMientras
+FinAlgoritmo
